@@ -23,7 +23,7 @@ public class SocialMediaController {
         app.get("/messages/{message_id}", this::getMessageByIdHandler);
         app.delete("/messages/{message_id}", this::deleteMessageHandler);
         app.patch("/messages/{message_id}", this::updateMessageHandler);
-        app.get("/{account_id}/messages", this::getAllMessagesFromUserHandler);
+        app.get("/accounts/{account_id}/messages", this::getAllMessagesFromUserHandler);
 
         return app;
     }
@@ -76,7 +76,7 @@ public class SocialMediaController {
     The response status should be 200, which is the default. 
     The new message should be persisted to the database.
     If the creation of the message is not successful, the response status should be 400. (Client error)
-     */
+    */
     private void postMessagesHandler(Context context) {
         context.json("sample text");
     }
@@ -87,7 +87,7 @@ public class SocialMediaController {
     The response body should contain a JSON representation of a list containing all messages retrieved from the database. 
     It is expected for the list to simply be empty if there are no messages. 
     The response status should always be 200, which is the default.
-     */
+    */
     private void getAllMessagesHandler(Context context) {
         context.json("sample text");
     }
@@ -98,7 +98,7 @@ public class SocialMediaController {
     The response body should contain a JSON representation of the message identified by the message_id. 
     It is expected for the response body to simply be empty if there is no such message. 
     The response status should always be 200, which is the default.
-     */
+    */
     private void getMessageByIdHandler(Context context) {
         context.json("sample text");
     }
@@ -112,7 +112,7 @@ public class SocialMediaController {
     If the message did not exist, the response status should be 200, but the response body should be empty. 
     This is because the DELETE verb is intended to be idempotent, 
     ie, multiple calls to the DELETE endpoint should respond with the same type of response.
-     */
+    */
     private void deleteMessageHandler(Context context) {
         context.json("sample text");
     }
@@ -127,7 +127,7 @@ public class SocialMediaController {
     and the response status should be 200, which is the default. 
     The message existing on the database should have the updated message_text.
     If the update of the message is not successful for any reason, the response status should be 400. (Client error)
-     */
+    */
     private void updateMessageHandler(Context context) {
         context.json("sample text");
     }
@@ -138,7 +138,7 @@ public class SocialMediaController {
     The response body should contain a JSON representation of a list containing all messages posted by a particular user, which is retrieved from the database. 
     It is expected for the list to simply be empty if there are no messages. 
     The response status should always be 200, which is the default.
-     */
+    */
     private void getAllMessagesFromUserHandler(Context context) {
         context.json("sample text");
     }
