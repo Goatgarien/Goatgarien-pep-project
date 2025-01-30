@@ -2,6 +2,13 @@ package Controller;
 
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+import Model.Account;
+import Model.Message;
+import Service.AccountService;
+import Service.MessagesService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller. The endpoints you will need can be
@@ -43,7 +50,14 @@ public class SocialMediaController {
     If the registration is not successful, the response status should be 400. (Client error)
      */
     private void registerUserHandler(Context context) {
-        context.json("sample text");
+        ObjectMapper mapper = new ObjectMapper();
+        Account account = mapper.readValue(context.body(), Account.class);
+        Account addedAccount = accountService.addAccount(account);
+        if(addedAccount!=null){
+            context.json(mapper.writeValueAsString(addedAccount));
+        }else{
+            context.status(400);
+        }
     }
 
     /* 2
