@@ -81,8 +81,15 @@ public class SocialMediaController {
     The response status should be 200 OK, which is the default.
     If the login is not successful, the response status should be 401. (Unauthorized) 
     */
-    private void loginHandler(Context context) {
-        context.json("sample text");
+    private void loginHandler(Context context) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Account account = mapper.readValue(context.body(), Account.class);
+        Account login = accountService.loginAccount(account);
+        if(login!=null){
+            context.json(mapper.writeValueAsString(login)).status(200);
+        }else{
+            context.status(401);
+        }
     }
 
     /* 3

@@ -30,4 +30,13 @@ public class AccountService {
         }
         return accountDAO.registerUser(account);
     }
+
+    /*
+    The login will be successful if and only if the username and password provided in the request body JSON match a real account existing on the database. 
+    If successful, the response body should contain a JSON of the account in the response body, 
+    including its account_id. 
+    */
+    public Account loginAccount(Account account) {
+        return accountDAO.loginDAO(account);
+    }
 }
