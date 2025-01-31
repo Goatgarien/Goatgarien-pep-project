@@ -59,6 +59,7 @@ public class MessagesService {
         if(message.getMessage_text().length() <= 0 || message.getMessage_text().length() > 255){
             return null;
         }
+        //no need to check if message exists since updateMessage in DAO will return null if the SQL query fails to find the message
         return messagesDAO.updateMessage(messageId, message);
     }
 
