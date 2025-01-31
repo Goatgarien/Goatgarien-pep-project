@@ -52,10 +52,13 @@ public class MessagesService {
     }
 
     /*
-    The response body should contain a JSON representation of the message identified by the message_id.
-    It is expected for the response body to simply be empty if there is no such message.
+    The update of a message should be successful if and only if the message id already exists and the new message_text is not blank and is not over 255 characters. 
+    If the update is successful, the response body should contain the full updated message (including message_id, posted_by, message_text, and time_posted_epoch)
     */
     public Message updateMessageById(int messageId, Message message) {
+        if(message.getMessage_text().length() <= 0 || message.getMessage_text().length() > 255){
+            return null;
+        }
         return messagesDAO.updateMessage(messageId, message);
     }
 

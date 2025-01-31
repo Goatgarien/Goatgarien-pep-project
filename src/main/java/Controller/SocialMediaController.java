@@ -177,8 +177,16 @@ public class SocialMediaController {
     The message existing on the database should have the updated message_text.
     If the update of the message is not successful for any reason, the response status should be 400. (Client error)
     */
-    private void updateMessageHandler(Context context) {
-        context.json("sample text");
+    private void updateMessageHandler(Context context) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Message message = mapper.readValue(context.body(), Message.class);
+        int messageId = Integer.parseInt(context.pathParam("message_id"));
+        Message updatedMessage = messageService.updateMessageById(messageId, message);
+        if(updatedMessage!=null){
+            context.json(mapper.writeValueAsString(updatedMessage)).status(200);
+        }else{
+            context.status(400);
+        }
     }
 
     /* 8
