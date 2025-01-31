@@ -137,7 +137,13 @@ public class SocialMediaController {
     The response status should always be 200, which is the default.
     */
     private void getMessageByIdHandler(Context context) {
-        context.json("sample text");
+        int messageId = Integer.parseInt(context.pathParam("message_id"));
+        Message messagesFromUser = messageService.getAllMessagesFromUser(messageId);
+        if (messagesFromUser != null) {
+            context.json(messagesFromUser).status(200);
+        } else {
+            context.result("").status(200); // Return an empty response body
+        }
     }
 
     /* 6
