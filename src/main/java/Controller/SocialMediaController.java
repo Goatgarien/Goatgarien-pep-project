@@ -16,6 +16,14 @@ import java.util.List;
  * refer to prior mini-project labs and lecture materials for guidance on how a controller may be built.
  */
 public class SocialMediaController {
+    MessagesService messageService;
+    AccountService accountService;
+
+    public SocialMediaController(){
+        this.messageService = new MessagesService();
+        this.accountService = new AccountService();
+    }
+
     /**
      * In order for the test cases to work, you will need to write the endpoints in the startAPI() method, as the test
      * suite must receive a Javalin object from this method.
@@ -49,12 +57,12 @@ public class SocialMediaController {
     The new account should be persisted to the database.
     If the registration is not successful, the response status should be 400. (Client error)
      */
-    private void registerUserHandler(Context context) {
+    private void registerUserHandler(Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Account account = mapper.readValue(context.body(), Account.class);
         Account addedAccount = accountService.addAccount(account);
         if(addedAccount!=null){
-            context.json(mapper.writeValueAsString(addedAccount));
+            context.json(mapper.writeValueAsString(addedAccount)).status(200);
         }else{
             context.status(400);
         }
