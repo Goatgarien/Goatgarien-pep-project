@@ -157,7 +157,13 @@ public class SocialMediaController {
     ie, multiple calls to the DELETE endpoint should respond with the same type of response.
     */
     private void deleteMessageHandler(Context context) {
-        context.json("sample text");
+        int messageId = Integer.parseInt(context.pathParam("message_id"));
+        Message deletedMessage = messageService.deleteMessageById(messageId);
+        if (deletedMessage != null) {
+            context.json(deletedMessage).status(200);
+        } else {
+            context.result("").status(200); // Return an empty response body
+        }
     }
 
     /* 7

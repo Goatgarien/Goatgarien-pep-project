@@ -31,22 +31,33 @@ public class MessagesService {
     }
 
     /*
-    The response body should contain a JSON representation of a list containing all messages retrieved from the database. 
-    It is expected for the list to simply be empty if there are no messages.
+    The response body should contain a JSON representation of a list containing all messages retrieved from the database.
     */
     public List<Message> getAllMessages() {
         return messagesDAO.getAllMessages();
     }
 
     /*
-    The response body should contain a JSON representation of the message identified by the message_id. 
-    It is expected for the response body to simply be empty if there is no such message.
+    The response body should contain a JSON representation of the message identified by the message_id.
     */
     public Message getMessageById(int messageId) {
         return messagesDAO.getMessageById(messageId);
     }
 
-    
+    /*
+    If the message existed, the response body should contain the now-deleted message.
+    */
+    public Message deleteMessageById(int messageId) {
+        return messagesDAO.deleteMessage(messageId);
+    }
+
+    /*
+    The response body should contain a JSON representation of the message identified by the message_id.
+    It is expected for the response body to simply be empty if there is no such message.
+    */
+    public Message updateMessageById(int messageId, Message message) {
+        return messagesDAO.updateMessage(messageId, message);
+    }
 
     /*
     The response body should contain a JSON representation of a list containing all messages posted by a particular user, which is retrieved from the database. 
