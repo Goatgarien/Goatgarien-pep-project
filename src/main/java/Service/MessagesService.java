@@ -2,6 +2,7 @@ package Service;
 
 import DAO.MessagesDAO;
 import Model.Message;
+import java.util.List;
 
 public class MessagesService {
     public MessagesDAO messagesDAO;
@@ -27,5 +28,13 @@ public class MessagesService {
             return null;
         }
         return messagesDAO.postMessage(message);
+    }
+
+    /*
+    The response body should contain a JSON representation of a list containing all messages retrieved from the database. 
+    It is expected for the list to simply be empty if there are no messages.
+    */
+    public List<Message> getAllMessages() {
+        return messagesDAO.getAllMessages();
     }
 }
