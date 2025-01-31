@@ -42,7 +42,17 @@ public class MessagesService {
     The response body should contain a JSON representation of the message identified by the message_id. 
     It is expected for the response body to simply be empty if there is no such message.
     */
-    public Message getAllMessagesFromUser(int user) {
-        return messagesDAO.getMessageById(user);
+    public Message getMessageById(int messageId) {
+        return messagesDAO.getMessageById(messageId);
+    }
+
+    
+
+    /*
+    The response body should contain a JSON representation of a list containing all messages posted by a particular user, which is retrieved from the database. 
+    It is expected for the list to simply be empty if there are no messages. 
+    */
+    public List<Message> getAllMessagesFromUser(int user) {
+        return messagesDAO.getAllMessagesFromAccount(user);
     }
 }

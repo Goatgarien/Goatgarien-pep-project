@@ -138,9 +138,9 @@ public class SocialMediaController {
     */
     private void getMessageByIdHandler(Context context) {
         int messageId = Integer.parseInt(context.pathParam("message_id"));
-        Message messagesFromUser = messageService.getAllMessagesFromUser(messageId);
-        if (messagesFromUser != null) {
-            context.json(messagesFromUser).status(200);
+        Message messageById = messageService.getMessageById(messageId);
+        if (messageById != null) {
+            context.json(messageById).status(200);
         } else {
             context.result("").status(200); // Return an empty response body
         }
@@ -183,7 +183,13 @@ public class SocialMediaController {
     The response status should always be 200, which is the default.
     */
     private void getAllMessagesFromUserHandler(Context context) {
-        context.json("sample text");
+        int accountId = Integer.parseInt(context.pathParam("account_id"));
+        List<Message> messagesFromUser = messageService.getAllMessagesFromUser(accountId);
+        if (messagesFromUser != null) {
+            context.json(messagesFromUser).status(200);
+        } else {
+            context.result("").status(200); // Return an empty response body
+        }
     }
 
 
