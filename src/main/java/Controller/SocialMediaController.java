@@ -106,8 +106,15 @@ public class SocialMediaController {
     The new message should be persisted to the database.
     If the creation of the message is not successful, the response status should be 400. (Client error)
     */
-    private void postMessagesHandler(Context context) {
-        context.json("sample text");
+    private void postMessagesHandler(Context context) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Message message = mapper.readValue(context.body(), Message.class);
+        Message addedMessage = messageService.addMessage(message);
+        if(addedMessage!=null){
+            context.json(mapper.writeValueAsString(addedMessage)).status(200);
+        }else{
+            context.status(400);
+        }
     }
 
     /* 4

@@ -1,5 +1,31 @@
 package Service;
 
+import DAO.MessagesDAO;
+import Model.Message;
+
 public class MessagesService {
+    public MessagesDAO messagesDAO;
+
+    public MessagesService(){
+        messagesDAO = new MessagesDAO();
+    }
     
+    public MessagesService(MessagesDAO messagesDAO){
+        this.messagesDAO = messagesDAO;
+    }
+
+    /*
+    The creation of the message will be successful if and only if the message_text is not blank, 
+    is not over 255 characters, 
+    and posted_by refers to a real, existing user.
+    */
+    public Message addMessage(Message message) {
+        if(message.getMessage_text().length() <= 0 || message.getMessage_text().length() > 255){
+            return null;
+        }
+        if(!messagesDAO.checkIfUserExists(message.getPosted_by())){
+            return null;
+        }
+        return messagesDAO.postMessage(message);
+    }
 }
